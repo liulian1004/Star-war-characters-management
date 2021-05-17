@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
+import { Http,Response } from "@angular/http";
 import { Subject } from "rxjs";
 import { LogService } from "./log.service";
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class StarWarsService {
@@ -10,9 +12,10 @@ export class StarWarsService {
     { name: "Darth Vader", side: "" },
   ];
   charactersChange = new Subject<void>();
-
-  constructor(logService:LogService){
+  private http:Http;
+  constructor(logService:LogService, http:Http){
     this.logService = logService;
+    this.http = http;
   }
   getCharacters(chosenList:string) {
     if (chosenList === "all") {
@@ -45,4 +48,28 @@ export class StarWarsService {
       this.characters.push(ele)
 
   }
+
+  fetchCharacters(){
+      //this.http.post("url",....)
+      //http need to work with subscribe
+      //map
+      this.http.get("https://swapi.dev/api/people")
+    // the import method of map is different
+      .map((response:Response) =>{ // change json to js object
+        const data = response.json();
+        //extract the name to chars
+        const chars = data.results.map((char:{name:string, side:string})=>{
+          return {name:char.name, side: ''};
+        });
+        return chars;
+      })
+      .subscribe(
+        (data) => {
+          console.log(data);
+          this.characters = data;
+          this.charactersChange.next(); // update page once get new data
+        })
+
+  }
+
 }

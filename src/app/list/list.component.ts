@@ -31,6 +31,7 @@ export class ListComponent implements OnInit, OnDestroy {
   //subsribe the change of rotue
   //and read variable from router name params
   ngOnInit(): void {
+  
     //this is async function
     //this is for register the subsrcibe
       this.activatedRoute.params.subscribe(
