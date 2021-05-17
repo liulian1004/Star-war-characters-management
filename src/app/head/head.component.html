@@ -1,0 +1,9 @@
+<ul class="nav nav-pills">
+  <!--if just want to pass a string, can use the below shortcut-->
+  <!--routerLinkActive="active" is shortcut, same as [outerLinkActive]="'active'" -->
+  <li class="nav-item" routerLinkActive="active" >
+  <!-- [routerLinkActiveOptions]="{exact:true}" option configure: determine if the router link is active-->
+    <a class="nav-link" routerLink="/" >Star Wars Characters</a></li>
+  <li class="nav-item" routerLinkActive="active">
+      <a class="nav-link" routerLink="/new-characters">New Characters</a></li>
+</ul>

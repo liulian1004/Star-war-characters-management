@@ -1,0 +1,29 @@
+<!-- form: pass the input from html to angular method, form, ngModel-->
+<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+  <div class="form-group">
+    <label for="name">characters Name</label>
+  <!-- if use ngModel, must have name attribute-->
+  <!-- require will lead to form.invalid = true, it will work in the ts-->
+    <input type="text" id="name" name="name" class="form-control"
+    ngModel required #nameInput="ngModel">
+    <!-- when ngModel is invalid and it's already touch this text box, warm will appear-->
+    <span class="help-block" *ngIf="nameInput.invalid && nameInput.touched">
+      Please enter name!
+    </span>
+  </div>
+  <p></p>
+  <div class="form-group">
+  <label for="side">Choose side</label>
+  <!-- ngModel, bind the value you choose-->
+  <select name="side" id="side" class="form-control" ngModel>
+    <option *ngFor="let option of availableSide" [value]="option.value">
+      {{option.display}}
+    </option>
+  </select>
+  </div>
+  <p></p>
+  <!--can't click botton if form.invalid = true-->
+  <button class="btn btn-primary" type ="submit" [disabled]="form.invalid">Add Characters</button>
+
+
+</form>
